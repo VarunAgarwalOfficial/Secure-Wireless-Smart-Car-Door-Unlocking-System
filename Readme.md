@@ -6,8 +6,8 @@
 
 ## Role:
 
-- **Researchers:** Varun Niraj Agarwal, Avaneesh Kanshi, Navneet Vinod Melarkode.
-- **Supervisor:** Dr. Anisha M Lal from the Department of Computer Science and Engineering.
+- **Researchers:** Navneet Vinod Melarkode, Varun Niraj Agarwal, Avaneesh Kanshi.
+- **Supervisor:** Dr. Anisha M Lal from the Department of Computer Science and Engineering, VIT Vellore.
 
 ## Technologies Used:
 
