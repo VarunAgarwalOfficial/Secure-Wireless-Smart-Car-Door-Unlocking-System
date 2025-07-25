@@ -1,0 +1,34 @@
+# Smart Car Door Control System Dependencies
+
+# Arduino hardware control (optional)
+pyfirmata>=1.1.0
+
+# For sound alerts on Windows (built-in on Windows)
+# winsound (built-in on Windows)
+
+# Core dependencies (built-in with Python 3.6+)
+# json (built-in)
+# hashlib (built-in) 
+# socket (built-in)
+# threading (built-in)
+# time (built-in)
+# random (built-in)
+# collections (built-in)
+
+# Installation instructions:
+# pip install pyfirmata
+
+# Arduino setup:
+# 1. Install Arduino IDE
+# 2. Upload StandardFirmata sketch to your Arduino
+# 3. Connect Arduino via USB
+# 4. Update ARDUINO_PORT in car.py to match your system:
+#    - Windows: "COM3", "COM4", etc.
+#    - Linux: "/dev/ttyUSB0", "/dev/ttyACM0", etc.  
+#    - macOS: "/dev/tty.usbmodem*"
+
+# Hardware connections (optional):
+# Pin 13: Lock status LED
+# Pin 12: Unlock status LED
+# Pin 9:  Servo motor for door mechanism
+# Pin 8:  Buzzer for audio feedback
