@@ -1,69 +1,62 @@
-# Overview:
+# Secure Wireless Smart Car Door Unlocking System
 
-- **Project Aim:** Enhance security in smart car door unlocking within the Internet of Vehicles (IoV).
-- **Approach:** Novel use of disposable encryption keys, rolling code, and MAC-then-encrypt architecture.
-- **Demonstration:** Real-time implementations in C and Python using Arduino with PyFirmata.
+Code and paper for a rolling-code scheme that locks and unlocks a car door over a wireless link. Every button press sends a one-time code derived from a shared seed and hashed, so a captured message cannot be replayed.
 
-## Role:
+**Published:** Springer book chapter in *IoT Based Control Networks and Intelligent Systems* (ICICNIS 2022), Lecture Notes in Networks and Systems, vol. 528, pp. 99–112. DOI: [10.1007/978-981-19-5845-8_8](https://doi.org/10.1007/978-981-19-5845-8_8).
 
-- **Researchers:** Navneet Vinod Melarkode, Varun Niraj Agarwal, Avaneesh Kanshi.
-- **Supervisor:** Dr. Anisha M Lal from the Department of Computer Science and Engineering, VIT Vellore.
+The repository holds the submitted paper (`ICICNIS_2022_paper_2358.pdf`), a second copy of the paper, the project report and the prototype code.
 
-## Technologies Used:
+## Why it is interesting
 
-- **Key Technologies:** Rolling Code, SHA256 hashing, MAC-then-encrypt architecture.
-- **Implementations:** C and Python; real-time system on Arduino with PyFirmata.
+- The car and the remote share a seed and a counter. Both draw the same sequence of random numbers from the seed, hash each one into a MAC, and hash that again with the action (`LOCK` or `UNLOCK`), so each code is used once and says what it is for.
+- The car precomputes a window of the next 128 codes. A press that the car did not hear (the remote is ahead) still matches a later code in the window, and the car then moves its counter forward to resynchronise.
 
-## Comparison with Existing Protocols:
+## Run it
 
-- **Shortcomings Addressed:** Overcomes vulnerabilities in traditional car door unlocking systems.
-- **Existing Protocols:** Symmetric and asymmetric encryption prone to hardware attacks.
-- **Proposed Method:** Utilizes rolling codes, dynamic key generation, and advanced hashing for robust security.
+The prototype in `Real Time Implementation using Pyfirmata/` runs on two machines on the same network: one as the car, one as the remote.
 
-## Key Achievements:
+```bash
+pip install pycryptodome numpy python-dotenv
+python seed_generation.py   # writes seed.json; copy the same file to both machines
+python car.py               # on the car machine: listens on port 5050
+python remote.py            # on the remote machine: asks for LOCK or UNLOCK and sends the code
+```
 
-- **Secure System:** Developed a highly secure smart car door unlocking system.
-- **Demonstrations:** Real-time implementations in C and Python.
-- **Real-time Transfer:** Successfully implemented on Arduino with PyFirmata.
-- **Validation:** Proven effectiveness against various attacks.
+This is the code as it was in 2022, not maintained since:
 
-## Challenges Overcome:
+- `car.py` uses `winsound`, so it runs on Windows. The Arduino calls through pyFirmata are present but commented out.
+- `remote.py` has the car's IP address hard-coded; change `SERVER` to your car machine's address.
+- `remote.py` hashes with MD5 while `car.py` compares against SHA-256, so the two must be made to use the same hash before they will match.
+- `main.py` is a separate RSA (PKCS#1 OAEP) experiment; `rng.py`, `try.py` and `Modules/` are scratch files.
 
-- **System Limitations:** Addressed and mitigated risks associated with existing car door unlocking systems.
-- **Hardware Attacks:** Successfully countered risks related to hardware-induced attacks on encryption.
+A reworked 2025 version, with the Arduino wired up through pyFirmata, is in [Secure-IoV-Unlocking-System](https://github.com/VarunAgarwalOfficial/Secure-IoV-Unlocking-System).
 
-## Collaboration:
+## Tech
 
-- **Collaborators:** Researchers from Computer Science and Engineering at Vellore Institute of Technology.
+Python, hashlib (SHA-256), sockets, pyFirmata and Arduino; PyCryptodome for the RSA experiment.
 
-## Learnings:
+## Context
 
-- **Algorithmic Importance:** Significance of combining proven algorithms for enhanced security.
-- **Security Measures:** Effectiveness of rolling codes and dynamic key generation in IoT-based systems.
-- **Implementation Skills:** Overcame real-time implementation challenges, showcasing problem-solving skills.
+Research project at VIT Vellore, School of Computer Science and Engineering, 2022. The full author list is in the citation below.
 
-## Key Skills Demonstrated:
+## Cite
 
-- **Cryptography Proficiency:** Expertise in cryptographic algorithms and security protocols.
-- **IoT Application:** In-depth understanding and application of IoT principles in the automotive industry.
-- **Problem-Solving:** Addressing security challenges in smart car door unlocking systems.
-- **Real-time Implementation:** Successfully implemented using Arduino and PyFirmata.
+```bibtex
+@incollection{Melarkode2022SmartCarDoor,
+  title     = {Secure Wireless Smart Car Door Unlocking System},
+  author    = {Melarkode, Navneet Vinod and Agarwal, Varun Niraj and Kanshi, Avaneesh and Lal, Anisha M.},
+  booktitle = {IoT Based Control Networks and Intelligent Systems},
+  series    = {Lecture Notes in Networks and Systems},
+  volume    = {528},
+  publisher = {Springer Nature Singapore},
+  year      = {2022},
+  pages     = {99--112},
+  doi       = {10.1007/978-981-19-5845-8_8}
+}
+```
 
-## Results:
+GitHub also reads `CITATION.cff` and shows a "Cite this repository" button.
 
-- **System Development:** Highly secure smart car door unlocking system.
-- **Implementations:** Real-time demonstrations in C and Python.
-- **Transfer:** Successfully migrated to a real-time environment using Arduino with PyFirmata.
-- **Security Effectiveness:** Resilient against common attacks like replay and brute force attempts.
+## License
 
-## Featured Content:
-
-- **Publication:** Book chapter in IoT Based Control Networks and Intelligent Systems (Proceedings of ICICNIS 2022), Springer.
-- **Volume:** Lect. Notes in Networks, Syst., Vol. 528, P.P. Joby et al. (Eds).
-- **DOI:** [10.1007/978-981-19-5845-8_8](https://doi.org/10.1007/978-981-19-5845-8_8)
-
-## Conclusion:
-
-- **Project Success:** Developed and implemented a robust wireless smart car door unlocking system.
-- **Scalability Considerations:** Despite challenges, significantly improves IoT-based car lock system security.
-- **Pride in Contribution:** Contributed to the success of this innovative project.
+MIT, see LICENSE.

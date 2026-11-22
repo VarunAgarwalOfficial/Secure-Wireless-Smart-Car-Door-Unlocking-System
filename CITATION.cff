@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the book chapter below."
+title: "Secure Wireless Smart Car Door Unlocking System"
+type: software
+license: MIT
+repository-code: "https://github.com/VarunAgarwalOfficial/Secure-Wireless-Smart-Car-Door-Unlocking-System"
+authors:
+  - family-names: Agarwal
+    given-names: Varun Niraj
+    orcid: "https://orcid.org/0000-0002-0785-5357"
+preferred-citation:
+  type: conference-paper
+  title: "Secure Wireless Smart Car Door Unlocking System"
+  authors:
+    - family-names: Melarkode
+      given-names: Navneet Vinod
+    - family-names: Agarwal
+      given-names: Varun Niraj
+      orcid: "https://orcid.org/0000-0002-0785-5357"
+    - family-names: Kanshi
+      given-names: Avaneesh
+    - family-names: Lal
+      given-names: Anisha M.
+  collection-title: "IoT Based Control Networks and Intelligent Systems"
+  collection-type: proceedings
+  conference:
+    name: "International Conference on IoT Based Control Networks and Intelligent Systems (ICICNIS 2022)"
+  publisher:
+    name: "Springer Nature Singapore"
+  volume: 528
+  year: 2022
+  start: 99
+  end: 112
+  isbn: "9789811958458"
+  doi: "10.1007/978-981-19-5845-8_8"
