@@ -58,8 +58,9 @@
 
 ## Featured Content:
 
-- **Publication:** Journal IoT Based Control Networks and Intelligent Systems By Springer.
+- **Publication:** Book chapter in IoT Based Control Networks and Intelligent Systems (Proceedings of ICICNIS 2022), Springer.
 - **Volume:** Lect. Notes in Networks, Syst., Vol. 528, P.P. Joby et al. (Eds).
+- **DOI:** [10.1007/978-981-19-5845-8_8](https://doi.org/10.1007/978-981-19-5845-8_8)
 
 ## Conclusion:
 
