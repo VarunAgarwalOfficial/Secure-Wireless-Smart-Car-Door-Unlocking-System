@@ -2,7 +2,7 @@
 
 A two-laptop demonstration of rolling-code car door locking. One laptop plays the car and drives an Arduino (LEDs, servo signal line and buzzer) through pyFirmata; the other plays the remote and sends one-time lock and unlock codes over the local network.
 
-This repository is the 2025 hardware and network rework of the demonstration for the paper "Secure Wireless Smart Car Door Unlocking System" (Springer, Lecture Notes in Networks and Systems, vol. 528, [doi:10.1007/978-981-19-5845-8_8](https://doi.org/10.1007/978-981-19-5845-8_8)). The paper's own repository is [Secure-Wireless-Smart-Car-Door-Unlocking-System](https://github.com/VarunAgarwalOfficial/Secure-Wireless-Smart-Car-Door-Unlocking-System).
+This repository is the 2025 hardware and network rework of the demonstration for the paper "Secure Wireless Smart Car Door Unlocking System" (Springer, Lecture Notes in Networks and Systems, vol. 528, [doi:10.1007/978-981-19-5845-8_8](https://doi.org/10.1007/978-981-19-5845-8_8)). The paper and the original code are in the [top folder](../README.md) of this repository.
 
 ## Why it is interesting
 
@@ -95,11 +95,11 @@ Python 3 (sockets, hashlib, threading) with pyFirmata and an Arduino running Sta
 
 ## Context
 
-2025 rework of the hardware demonstration for the book chapter "Secure Wireless Smart Car Door Unlocking System" (Springer, LNNS vol. 528). The paper and original code are in [Secure-Wireless-Smart-Car-Door-Unlocking-System](https://github.com/VarunAgarwalOfficial/Secure-Wireless-Smart-Car-Door-Unlocking-System).
+2025 rework of the hardware demonstration for the book chapter "Secure Wireless Smart Car Door Unlocking System" (Springer, LNNS vol. 528). The paper and original code are in the [top folder](../README.md).
 
 ## Status
 
-Finished, as of 26 November 2026. A 2022 prototype, not maintained. See [STATUS.md](STATUS.md).
+Finished, as of 26 November 2026. A 2025 rework, not maintained. See [STATUS.md](STATUS.md).
 
 ## Licence
 

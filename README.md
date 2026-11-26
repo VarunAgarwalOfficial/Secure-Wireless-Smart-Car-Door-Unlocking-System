@@ -6,6 +6,8 @@ Code and paper for a rolling-code scheme that locks and unlocks a car door over 
 
 The repository holds two author versions of the paper, the project report and the prototype code. `ICICNIS_2022_paper_2358.pdf` is the submitted version (28 May 2022). `Secure Wireless Smart Car Door Unlocking System.pdf` is the revised version (3 June 2022). Neither is the published version, which is at the DOI above.
 
+`rework-2025/` holds the 2025 rework of the demo. It moved here from the Secure-IoV-Unlocking-System repository, with its history.
+
 ## Why it is interesting
 
 - The car and the remote share a seed and a counter. Both draw the same sequence of random numbers from the seed, hash each one into a MAC, and hash that again with the action (`LOCK` or `UNLOCK`), so each code is used once and says what it is for.
@@ -29,7 +31,7 @@ This is the code as it was in 2022, not maintained since:
 - `remote.py` hashes with MD5 while `car.py` compares against SHA-256, so the two must be made to use the same hash before they will match.
 - `main.py` is a separate RSA (PKCS#1 OAEP) experiment; `rng.py`, `try.py` and `Modules/` are scratch files.
 
-A reworked 2025 version, with the Arduino wired up through pyFirmata, is in [Secure-IoV-Unlocking-System](https://github.com/VarunAgarwalOfficial/Secure-IoV-Unlocking-System).
+A reworked 2025 version, with the Arduino wired up through pyFirmata, is in [`rework-2025/`](rework-2025/README.md).
 
 ## Tech
 
