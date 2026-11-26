@@ -13,6 +13,11 @@ The repository holds two author versions of the paper, the project report and th
 - The car and the remote share a seed and a counter. Both draw the same sequence of random numbers from the seed, hash each one into a MAC, and hash that again with the action (`LOCK` or `UNLOCK`), so each code is used once and says what it is for.
 - The car precomputes a window of the next 128 codes. A press that the car did not hear (the remote is ahead) still matches a later code in the window, and the car then moves its counter forward to resynchronise.
 
+## Limits
+
+- The paper gives the key space as 10^8. In the code, each number is drawn from 1 to 10^9.
+- The numbers come from Python's `random`, which is not made for security. The seed is one number up to 10^9, small enough to find by trying every value, and with the seed every code can be worked out.
+
 ## Run it
 
 The prototype in `Real Time Implementation using Pyfirmata/` runs on two machines on the same network: one as the car, one as the remote.
