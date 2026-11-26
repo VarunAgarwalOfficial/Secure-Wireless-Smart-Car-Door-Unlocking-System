@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+venv/
+
+# OS
+.DS_Store
+
+# Shared template
+.idea/
+.vscode/
+*.swp
+.env.*
+!.env.example
+node_modules/
+dist/
+target/
+.lake/
+.venv/
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
