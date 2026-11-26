@@ -4,12 +4,11 @@ Remote Car Control Client
 Generates rolling codes and sends commands to car door control server.
 """
 
+import hashlib
 import json
 import random
-import hashlib
 import socket
 import sys
-import time
 
 
 def load_seed():
@@ -41,14 +40,14 @@ def save_iteration(seed, iteration):
         # Load existing data to preserve other fields
         with open("seed.json", "r") as f:
             data = json.load(f)
-        
+
         # Update iteration counter
         data["iter"] = iteration
-        
+
         # Save back to file
         with open("seed.json", "w") as f:
             json.dump(data, f, indent=2)
-            
+
     except Exception as e:
         print(f"[ERROR] Failed to save iteration: {e}")
 
@@ -57,32 +56,32 @@ def generate_hash(seed, iteration, command):
     """
     Generate hash digest for specified command using rolling code.
     Uses double SHA-256 hashing with MAC-then-encrypt pattern.
-    
+
     Args:
         seed: Random seed for pseudorandom number generation
         iteration: Current iteration counter
         command: "LOCK" or "UNLOCK"
-    
+
     Returns:
         bytes: Hash digest to send to car
     """
     # Initialize random generator with seed
     random.seed(seed)
-    
+
     # Skip to current iteration to get next code
     for i in range(iteration):
         random.random()
-    
+
     # Generate next pseudorandom number
     pseudorandom_num = int(random.random() * 1000000000)
-    
+
     # First hash: Create MAC from pseudorandom number
     base_hash = hashlib.sha256(str(pseudorandom_num).encode()).digest()
-    
+
     # Second hash: Encrypt MAC + command (MAC-then-encrypt pattern)
     command_data = command.encode() + base_hash
     final_hash = hashlib.sha256(command_data).digest()
-    
+
     return final_hash
 
 
@@ -99,42 +98,42 @@ def send_command(host, port, command):
     try:
         # Load current seed and iteration
         seed, iteration = load_seed()
-        
+
         # Generate hash for this command
         hash_digest = generate_hash(seed, iteration, command)
-        
+
         print(f"[REMOTE] Sending {command} command to {host}:{port}")
         print(f"[INFO] Using iteration: {iteration}")
-        
+
         # Create socket connection
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.settimeout(10)  # 10 second timeout
-        
+
         # Connect to car server
-        print(f"[CONNECTING] Connecting to car system...")
+        print("[CONNECTING] Connecting to car system...")
         client_socket.connect((host, port))
-        print(f"[CONNECTED] Connected to car system!")
-        
+        print("[CONNECTED] Connected to car system!")
+
         # Send hash digest
         client_socket.send(hash_digest)
-        print(f"[SENT] Command hash sent to car")
-        
+        print("[SENT] Command hash sent to car")
+
         # Close connection
         client_socket.close()
-        
+
         # Update iteration counter (increment for next use)
         save_iteration(seed, iteration + 1)
-        
+
         print(f"[SUCCESS]  {command} command sent successfully!")
-        print(f"[INFO] Listen for laptop speaker beep and check Arduino LEDs")
+        print("[INFO] Listen for laptop speaker beep and check Arduino LEDs")
         return True
-        
-    except socket.timeout:
-        print(f"[ERROR]  Connection timeout - car system may be unreachable")
+
+    except TimeoutError:
+        print("[ERROR]  Connection timeout - car system may be unreachable")
         print(f"[HINT] Make sure car.py is running on {host}")
         return False
     except ConnectionRefused:
-        print(f"[ERROR]  Connection refused - car system may be down")
+        print("[ERROR]  Connection refused - car system may be down")
         print(f"[HINT] Check if car.py server is running on {host}:{port}")
         return False
     except OSError as e:
@@ -157,16 +156,16 @@ def get_car_ip():
     print("  192.168.1.100  (if car laptop IP is 192.168.1.100)")
     print("  127.0.0.1      (if testing on same machine)")
     print()
-    
+
     while True:
         ip = input("Car system IP address: ").strip()
-        
+
         if not ip:
             print("Please enter an IP address")
             continue
-            
+
         # Basic IP validation
-        parts = ip.split('.')
+        parts = ip.split(".")
         if len(parts) == 4:
             try:
                 for part in parts:
@@ -176,7 +175,7 @@ def get_car_ip():
                 return ip
             except ValueError:
                 pass
-        
+
         print("Invalid IP address format. Please try again.")
 
 
@@ -187,11 +186,11 @@ def interactive_mode():
     print("=== Smart Car Remote Control ===")
     print("This remote will connect to car.py running on another laptop")
     print()
-    
+
     # Get car system IP address
     HOST = get_car_ip()
     PORT = 5050
-    
+
     print(f"\n Target configured: {HOST}:{PORT}")
     print()
     print("Commands: 1=LOCK, 2=UNLOCK, 3=CHANGE IP, q=QUIT")
@@ -199,39 +198,39 @@ def interactive_mode():
     print("  • Car laptop speaker will beep")
     print("  • Arduino LEDs will blink")
     print()
-    
+
     while True:
         try:
             choice = input("Enter command (1/2/3/q): ").strip()
-            
-            if choice.lower() == 'q':
+
+            if choice.lower() == "q":
                 print("Remote control shutting down. Goodbye!")
                 break
-                
-            elif choice == '1':
-                print("\n" + "="*40)
+
+            elif choice == "1":
+                print("\n" + "=" * 40)
                 send_command(HOST, PORT, "LOCK")
-                print("="*40)
-                
-            elif choice == '2':
-                print("\n" + "="*40)
-                send_command(HOST, PORT, "UNLOCK")  
-                print("="*40)
-                
-            elif choice == '3':
+                print("=" * 40)
+
+            elif choice == "2":
+                print("\n" + "=" * 40)
+                send_command(HOST, PORT, "UNLOCK")
+                print("=" * 40)
+
+            elif choice == "3":
                 print()
                 HOST = get_car_ip()
                 print(f" Target updated: {HOST}:{PORT}")
-                
+
             else:
                 print("Invalid choice. Use:")
                 print("  1 = LOCK car")
-                print("  2 = UNLOCK car") 
+                print("  2 = UNLOCK car")
                 print("  3 = Change car IP")
                 print("  q = Quit")
-            
+
             print()  # Empty line for readability
-            
+
         except KeyboardInterrupt:
             print("\nRemote control shutting down. Goodbye!")
             break
@@ -246,7 +245,7 @@ def main():
     # Check for command line arguments
     if len(sys.argv) >= 2:
         command_arg = sys.argv[1].upper()
-        
+
         if command_arg in ["LOCK", "UNLOCK"]:
             # Command line mode - need IP address
             if len(sys.argv) >= 3:
@@ -255,28 +254,32 @@ def main():
             else:
                 # Ask for IP
                 HOST = get_car_ip()
-            
+
             PORT = 5050
-            
+
             print(f"\n=== Remote Command: {command_arg} ===")
             success = send_command(HOST, PORT, command_arg)
             sys.exit(0 if success else 1)
-            
+
         else:
             print("Usage:")
             print("  python remote.py                       # Interactive mode")
-            print("  python remote.py LOCK                  # Single command (will ask for IP)")
+            print(
+                "  python remote.py LOCK                  # Single command (will ask for IP)"
+            )
             print("  python remote.py UNLOCK 192.168.1.100  # Single command with IP")
             sys.exit(1)
-    
+
     elif len(sys.argv) == 1:
         # Interactive mode
         interactive_mode()
-    
+
     else:
         print("Usage:")
-        print("  python remote.py                        # Interactive mode") 
-        print("  python remote.py LOCK                   # Single command (will ask for IP)")
+        print("  python remote.py                        # Interactive mode")
+        print(
+            "  python remote.py LOCK                   # Single command (will ask for IP)"
+        )
         print("  python remote.py UNLOCK 192.168.1.100   # Single command with IP")
         sys.exit(1)
 

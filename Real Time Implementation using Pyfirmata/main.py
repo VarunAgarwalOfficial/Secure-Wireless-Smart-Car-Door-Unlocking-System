@@ -1,18 +1,20 @@
-import hashlib
-from Crypto.PublicKey import RSA
-from Crypto.Cipher import PKCS1_OAEP
 import binascii
+import hashlib
 
-str="avaneesh"
+from Crypto.Cipher import PKCS1_OAEP
+from Crypto.PublicKey import RSA
 
-def hashEncoder(action,string):
+str = "avaneesh"
+
+
+def hashEncoder(action, string):
     string_hash = string
 
-    for i in range(0,2):
+    for i in range(2):
         string_hash = hashlib.sha256(string_hash.encode())
         string_hash = action + string_hash.hexdigest()
-        action = ''
-    
+        action = ""
+
     return string_hash
 
 
@@ -28,10 +30,11 @@ def RSAEncrypter(string):
     privKeyPEM = keyPair.exportKey()
     # print(privKeyPEM.decode('ascii'))
 
-    string = string.encode('ascii')
+    string = string.encode("ascii")
     encryptor = PKCS1_OAEP.new(pubKey)
     encrypted = encryptor.encrypt(string)
     print("Encrypted:", binascii.hexlify(encrypted))
+
 
 def RSADecrypter(string):
     keyPair = RSA.generate(3072)
@@ -45,11 +48,11 @@ def RSADecrypter(string):
     privKeyPEM = keyPair.exportKey()
     # print(privKeyPEM.decode('ascii'))
 
-    string = string.encode('ascii')
+    string = string.encode("ascii")
     encryptor = PKCS1_OAEP.new(pubKey)
     encrypted = encryptor.encrypt(string)
     print("Encrypted:", binascii.hexlify(encrypted))
-print(hashEncoder('unlock',str))  
-print(RSAEncrypter('unlock'))  
 
-  
+
+print(hashEncoder("unlock", str))
+print(RSAEncrypter("unlock"))
