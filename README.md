@@ -4,7 +4,7 @@ Code and paper for a rolling-code scheme that locks and unlocks a car door over 
 
 **Published:** Springer book chapter in *IoT Based Control Networks and Intelligent Systems* (ICICNIS 2022), Lecture Notes in Networks and Systems, vol. 528, pp. 99–112. DOI: [10.1007/978-981-19-5845-8_8](https://doi.org/10.1007/978-981-19-5845-8_8).
 
-The repository holds the submitted paper (`ICICNIS_2022_paper_2358.pdf`), a second copy of the paper, the project report and the prototype code.
+The repository holds two author versions of the paper, the project report and the prototype code. `ICICNIS_2022_paper_2358.pdf` is the submitted version (28 May 2022). `Secure Wireless Smart Car Door Unlocking System.pdf` is the revised version (3 June 2022). Neither is the published version, which is at the DOI above.
 
 ## Why it is interesting
 
