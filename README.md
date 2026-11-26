@@ -57,6 +57,10 @@ Research project at VIT Vellore, School of Computer Science and Engineering, 202
 
 GitHub also reads `CITATION.cff` and shows a "Cite this repository" button.
 
-## License
+## Status
+
+Finished, as of 26 November 2026. The paper was published in LNNS volume 528 (2022). See [STATUS.md](STATUS.md).
+
+## Licence
 
 MIT, see LICENSE.
