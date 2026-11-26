@@ -97,6 +97,10 @@ Python 3 (sockets, hashlib, threading) with pyFirmata and an Arduino running Sta
 
 2025 rework of the hardware demonstration for the book chapter "Secure Wireless Smart Car Door Unlocking System" (Springer, LNNS vol. 528). The paper and original code are in [Secure-Wireless-Smart-Car-Door-Unlocking-System](https://github.com/VarunAgarwalOfficial/Secure-Wireless-Smart-Car-Door-Unlocking-System).
 
-## License
+## Status
 
-No licence has been added.
+Finished, as of 26 November 2026. A 2022 prototype, not maintained. See [STATUS.md](STATUS.md).
+
+## Licence
+
+MIT, see LICENSE.
