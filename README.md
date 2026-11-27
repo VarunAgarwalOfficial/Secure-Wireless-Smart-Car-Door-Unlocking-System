@@ -1,6 +1,12 @@
-# Secure Wireless Smart Car Door Unlocking System
+<p align="center"><img src="docs/banner.png" alt="Pixel art: a key fob sends code tiles to a pink car with an open padlock" width="100%"></p>
 
-Code and paper for a rolling-code scheme that locks and unlocks a car door over a wireless link. Every button press sends a one-time code derived from a shared seed and hashed, so a captured message cannot be replayed.
+# Smart car door
+
+Rolling-code car door locking over a wireless link: code and paper (Springer LNNS 528, ICICNIS 2022).
+
+[MIT licence](LICENSE)
+
+Every button press sends a one-time code derived from a shared seed and hashed, so a captured message cannot be replayed.
 
 **Published:** Springer book chapter in *IoT Based Control Networks and Intelligent Systems* (ICICNIS 2022), Lecture Notes in Networks and Systems, vol. 528, pp. 99–112. DOI: [10.1007/978-981-19-5845-8_8](https://doi.org/10.1007/978-981-19-5845-8_8).
 
