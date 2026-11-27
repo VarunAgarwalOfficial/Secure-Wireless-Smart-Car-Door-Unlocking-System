@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/banner.png" alt="Pixel art: a key fob sends code tiles to a pink car with an open padlock" width="100%"></p>
+<p align="center"><img src="docs/banner.png" alt="Pixel art: a key fob sends radio waves to a pink car, and a padlock above it opens" width="100%"></p>
 
 # Smart car door
 
