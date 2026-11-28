@@ -2,78 +2,26 @@
 
 # Smart car door
 
-Rolling-code car door locking over a wireless link: code and paper (Springer LNNS 528, ICICNIS 2022).
-
-[MIT licence](LICENSE)
-
-Every button press sends a one-time code derived from a shared seed and hashed, so a captured message cannot be replayed.
-
-**Published:** Springer book chapter in *IoT Based Control Networks and Intelligent Systems* (ICICNIS 2022), Lecture Notes in Networks and Systems, vol. 528, pp. 99–112. DOI: [10.1007/978-981-19-5845-8_8](https://doi.org/10.1007/978-981-19-5845-8_8).
-
-The repository holds two author versions of the paper, the project report and the prototype code. `ICICNIS_2022_paper_2358.pdf` is the submitted version (28 May 2022). `Secure Wireless Smart Car Door Unlocking System.pdf` is the revised version (3 June 2022). Neither is the published version, which is at the DOI above.
-
-`rework-2025/` holds the 2025 rework of the demo. It moved here from the Secure-IoV-Unlocking-System repository, with its history.
-
-## Why it is interesting
-
-- The car and the remote share a seed and a counter. Both draw the same sequence of random numbers from the seed, hash each one into a MAC, and hash that again with the action (`LOCK` or `UNLOCK`), so each code is used once and says what it is for.
-- The car precomputes a window of the next 128 codes. A press that the car did not hear (the remote is ahead) still matches a later code in the window, and the car then moves its counter forward to resynchronise.
-
-## Limits
-
-- The paper gives the key space as 10^8. In the code, each number is drawn from 1 to 10^9.
-- The numbers come from Python's `random`, which is not made for security. The seed is one number up to 10^9, small enough to find by trying every value, and with the seed every code can be worked out.
+Rolling-code car door locking over a wireless link: code and paper (Springer LNNS 528, ICICNIS 2022, [DOI](https://doi.org/10.1007/978-981-19-5845-8_8)).
 
 ## Run it
 
-The prototype in `Real Time Implementation using Pyfirmata/` runs on two machines on the same network: one as the car, one as the remote.
+Two machines on one network, one as the car and one as the remote:
 
 ```bash
+cd "Real Time Implementation using Pyfirmata"
 pip install pycryptodome numpy python-dotenv
-python seed_generation.py   # writes seed.json; copy the same file to both machines
-python car.py               # on the car machine: listens on port 5050
-python remote.py            # on the remote machine: asks for LOCK or UNLOCK and sends the code
+python seed_generation.py   # writes seed.json; copy it to both machines
+python car.py               # on the car machine
+python remote.py            # on the remote machine
 ```
 
-This is the code as it was in 2022, not maintained since:
+This is the 2022 code, not maintained; [docs/about.md](docs/about.md) lists what needs changing before it runs, how it works and its limits. The 2025 rework is in [rework-2025/](rework-2025/README.md).
 
-- `car.py` uses `winsound`, so it runs on Windows. The Arduino calls through pyFirmata are present but commented out.
-- `remote.py` has the car's IP address hard-coded; change `SERVER` to your car machine's address.
-- `remote.py` hashes with MD5 while `car.py` compares against SHA-256, so the two must be made to use the same hash before they will match.
-- `main.py` is a separate RSA (PKCS#1 OAEP) experiment; `rng.py`, `try.py` and `Modules/` are scratch files.
+## Build and test
 
-A reworked 2025 version, with the Arduino wired up through pyFirmata, is in [`rework-2025/`](rework-2025/README.md).
-
-## Tech
-
-Python, hashlib (SHA-256), sockets, pyFirmata and Arduino; PyCryptodome for the RSA experiment.
-
-## Context
-
-Research project at VIT Vellore, School of Computer Science and Engineering, 2022. The full author list is in the citation below.
-
-## Cite
-
-```bibtex
-@incollection{Melarkode2022SmartCarDoor,
-  title     = {Secure Wireless Smart Car Door Unlocking System},
-  author    = {Melarkode, Navneet Vinod and Agarwal, Varun Niraj and Kanshi, Avaneesh and Lal, Anisha M.},
-  booktitle = {IoT Based Control Networks and Intelligent Systems},
-  series    = {Lecture Notes in Networks and Systems},
-  volume    = {528},
-  publisher = {Springer Nature Singapore},
-  year      = {2022},
-  pages     = {99--112},
-  doi       = {10.1007/978-981-19-5845-8_8}
-}
+```bash
+make check    # compiles the code and checks the notebooks; CI runs it
 ```
 
-GitHub also reads `CITATION.cff` and shows a "Cite this repository" button.
-
-## Status
-
-Finished, as of 26 November 2026. The paper was published in LNNS volume 528 (2022). See [STATUS.md](STATUS.md).
-
-## Licence
-
-MIT, see LICENSE.
+Cite it with `CITATION.cff` ("Cite this repository" on GitHub). Finished; see [STATUS.md](STATUS.md). MIT licence.
